@@ -1,0 +1,21 @@
+---
+- hosts: node2
+  gather_facts: true
+  become: true
+  tasks:
+  - name: download maven and tomcat
+    get_url:
+      url: "{{ item }}"
+      dest: /home/devops/
+    with_items:
+      - https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+      - https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.69/bin/apache-tomcat-9.0.69.tar.gz
+  - name: unzip files
+    unarchive:
+      src: /home/devops/{{ item }}
+      dest: /home/devops
+      remote_src: yes
+    with_items:
+      - apache-maven-3.8.6-bin.tar.gz
+      - apache-tomcat-9.0.69.tar.gz
+

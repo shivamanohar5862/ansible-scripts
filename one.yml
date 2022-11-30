@@ -1,0 +1,23 @@
+---
+- hosts: node1
+  gather_facts: true
+  become: true
+  tasks:
+  - name: create a folder
+    file:
+      path: /home/devops/file1
+      state: touch
+      mode: '777'
+
+  - name: creating multiple folders
+    file:
+      path: /home/devops/{{ item }}
+      state: directory
+      mode: '777'
+    with_items:
+      - dir1
+      - dir2
+      - dir3 
+    tag:
+      - shiva
+
