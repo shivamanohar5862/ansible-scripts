@@ -1,0 +1,12 @@
+---
+- hosts: node1
+  gather_facts: true
+  become: true
+  tasks:
+  - name: grant user devops rw acces to a file
+    acl:
+      path: /home/devops/file1
+      entity: devops
+      etype: user
+      permissions: rw
+      state: present

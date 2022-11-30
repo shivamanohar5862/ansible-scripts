@@ -1,0 +1,30 @@
+---
+- hosts: node1
+  gather_facts: true
+  become: true
+  tasks:
+  - name: creating jenkins job
+    jenkins_job:
+      config: "{{ lookup('file', templates/text.xml)}}"
+      name: test
+      password:admin
+      url: http://localhost:8080
+      user: admin
+  - name: creating jenkins job with token
+    jenkins_job:
+      config: "{{ lookup('file', templates/text.xml)}}"
+      name: test
+      token: token
+      url: http://localhost:8080
+      user: admin
+      state: absent   #to delete job
+  - name: install plugin
+    jenkins_plugin:
+      name: plugin name
+      with_dependies: yes/no
+      state: latest     #absent to uninstall
+      version: "1.15"
+
+
+
+

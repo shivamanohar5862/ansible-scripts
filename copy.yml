@@ -1,0 +1,6 @@
+---
+- name: copying files from one folder to another
+  copy:
+    src: /home/devops/file1
+    dest: /opt
+    mode: '0666'
